@@ -1,7 +1,7 @@
 <template>
     <section class="model-showcase">
         <div v-for="(model, idx) in models" :key="model.title" class="model-item" :class="{ visible: visible[idx] }"
-            :ref="el => setModelRef(el, idx)">
+            :ref="el => setModelRef(el, idx)" @click="goTo(model.path)" >
             <div v-if="idx % 2 === 0" class="model-left">
                 <img src="@/assets/temp.png" class="model-img" alt="模型图片" />
             </div>
@@ -18,19 +18,24 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router' // 引入路由
+const router = useRouter()
 
 const models = [
     {
         title: '图像重建模型',
-        desc: '该模型通过低剂量采集的数据进行重建，能够恢复高分辨率和高信噪比的医学影像，为医生提供精准的病灶和解剖结构信息。可应用于各种影像类型的重建，帮助医护人员更加清晰地观察疾病发展。'
+        desc: '该模型通过低剂量采集的数据进行重建，能够恢复高分辨率和高信噪比的医学影像，为医生提供精准的病灶和解剖结构信息。可应用于各种影像类型的重建，帮助医护人员更加清晰地观察疾病发展。',
+        path: '/reconstruction'
     },
     {
         title: '图像分割模型',
-        desc: '图像分割模型可帮助从复杂的医学影像中精准分离出目标区域，如肿瘤或关键器官，为医生提供详细的结构信息。这一技术对于制定放疗计划、保护危及器官、以及评估治疗效果至关重要。'
+        desc: '图像分割模型可帮助从复杂的医学影像中精准分离出目标区域，如肿瘤或关键器官，为医生提供详细的结构信息。这一技术对于制定放疗计划、保护危及器官、以及评估治疗效果至关重要。',
+        path: '/segmentation'
     },
     {
         title: '剂量预测模型',
-        desc: '该模型结合临床需求进行剂量预测，帮助提高治疗效率，并降低辐射风险。它能够在低剂量成像条件下，快速进行高质量的影像重建与精准的分割与剂量预测，进一步提升治疗效果的精确度。'
+        desc: '该模型结合临床需求进行剂量预测，帮助提高治疗效率，并降低辐射风险。它能够在低剂量成像条件下，快速进行高质量的影像重建与精准的分割与剂量预测，进一步提升治疗效果的精确度。',
+        path: '/dose-prediction'
     }
 ]
 
@@ -40,7 +45,10 @@ const modelRefs = ref([])
 function setModelRef(el, idx) {
     if (el) modelRefs.value[idx] = el
 }
-
+// 点击跳转
+function goTo(path) {
+    router.push(path)
+}
 onMounted(() => {
     modelRefs.value.forEach((el, idx) => {
         const observer = new IntersectionObserver(
@@ -63,7 +71,7 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     gap: 56px;
-    margin: 120px auto 0;
+    margin: 60px auto 0;
     max-width: 1200px;
     padding: 0 32px;
     margin-bottom: 120px;
@@ -83,11 +91,16 @@ onMounted(() => {
     overflow: hidden;
     min-height: 220px;
     border: 1px solid #e3eaf3;
+    cursor: pointer;
 }
 
 .model-item.visible {
     opacity: 1;
-    transform: translateY(0) scale(1);
+   
+}
+.model-item.visible:hover {
+  transform: translateY(60px) scale(1.01); 
+  box-shadow: 0 8px 32px rgba(20, 40, 80, 0.16);
 }
 
 .model-left,

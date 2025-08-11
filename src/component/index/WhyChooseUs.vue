@@ -67,6 +67,7 @@
     align-items: center;
     padding: 32px 18px 28px 18px;
     transition: box-shadow 0.3s;
+    cursor: pointer;
 }
 
 .why-item:hover {

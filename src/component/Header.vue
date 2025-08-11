@@ -8,12 +8,13 @@
 
         <!-- 中间导航栏 -->
         <nav class="nav-menu">
-            <a v-for="item in menuItems" :key="item.value" :href="item.href"
-                :class="['nav-link', { active: menu2Value === item.value }]" @click.prevent="menu2Value = item.value">
+            <router-link v-for="item in menuItems" :key="item.value" :to="item.path" class="nav-link"
+                :class="{ active: menu2Value === item.value }">
                 {{ item.label }}
                 <span v-if="menu2Value === item.value" class="active-underline"></span>
-            </a>
+            </router-link>
         </nav>
+
 
         <!-- 右侧个人中心 -->
         <div class="user-center">
@@ -27,17 +28,28 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+const route = useRoute()
 
-const menu2Value = ref('item1')
+const menu2Value = ref('')
 const menuItems = [
-    { value: 'item1', label: '首页', href: '#' },
-    { value: 'item2', label: '重建技术', href: '#' },
-    { value: 'item3', label: '分割技术', href: '#' },
-    { value: 'item4', label: '剂量预测技术', href: '#' },
-    { value: 'item5', label: '量子介绍', href: '#' },
-    { value: 'item6', label: '关于我们', href: '#' }
+    { value: 'item1', label: '首页', path: '/' },
+    { value: 'item2', label: '重建技术', path: '/reconstruction' },
+    { value: 'item3', label: '分割技术', path: '/segmentation' },
+    { value: 'item4', label: '剂量预测技术', path: '/dose-prediction' },
+    { value: 'item5', label: '量子介绍', path: '/quantum' },
+    { value: 'item6', label: '关于我们', path: '/about' }
 ]
+// 路由变化时自动更新当前高亮
+watch(
+    () => route.path,
+    (newPath) => {
+        const found = menuItems.find(item => item.path === newPath)
+        menu2Value.value = found ? found.value : ''
+    },
+    { immediate: true }
+)
 </script>
 
 <style scoped>
