@@ -1,5 +1,9 @@
 <template>
   <footer class="footer">
+            <div class="logo-area">
+            <img class="logo" src="@/assets/logo.png" />
+            <span class="brand-name">QUANTUM HEALTHCARE</span>
+        </div>
     <div class="footer-top">
       <!-- 第一行 -->
       <div class="footer-row">
@@ -62,7 +66,25 @@
   user-select: none;
   font-size: 14px;
 }
+.logo-area {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
 
+.logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    margin-right: 12px;
+}
+.brand-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #ccc;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
 .footer-top {
   display: flex;
   flex-direction: column;
@@ -125,7 +147,7 @@
 
 .footer-divider {
   border: none;
-  border-top: 1.5px solid #40a9ff;
+  border-top: 2px solid #ccc;
   margin: 24px 0 16px;
   width: 100%;
 }
