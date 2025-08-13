@@ -63,8 +63,9 @@ const images = [
 ]
 
 const currentIndex = ref(0)
-const lastIndex = ref(0)
+const lastIndex = ref(null) // 初始化为null
 const slideDirection = ref('right') // 'right' or 'left'
+const initialized = ref(false) // 添加初始化标志
 
 let timer = null
 
@@ -79,23 +80,27 @@ function nextImage() {
   slideDirection.value = 'right'
   lastIndex.value = currentIndex.value
   currentIndex.value = (currentIndex.value + 1) % images.length
+  if (!initialized.value) initialized.value = true
 }
 
 function prevImage() {
   slideDirection.value = 'left'
   lastIndex.value = currentIndex.value
   currentIndex.value = (currentIndex.value - 1 + images.length) % images.length
+  if (!initialized.value) initialized.value = true
 }
 
 onMounted(() => {
-  timer = setInterval(nextImage, 4000)
+  // 延迟启动轮播，确保第一张图片正常显示
+  setTimeout(() => {
+    timer = setInterval(nextImage, 4000)
+  }, 100)
 })
 
 onUnmounted(() => {
   clearInterval(timer)
 })
 </script>
-
 <style scoped>
 .carousel-bg {
   width: 100vw;
