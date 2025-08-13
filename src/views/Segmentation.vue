@@ -32,5 +32,4 @@
   margin-bottom: 40px;
   color: #333;
 }
-
 </style>
