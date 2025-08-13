@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import MedicalCarousel from '../component/index/MedicalCarousel.vue'
-import ModelShowcase from '../component/index/ModelShowcase.vue'
-import WhyChooseUs from '../component/index/WhyChooseUs.vue'
+import MedicalCarousel from '../components/index/MedicalCarousel.vue'
+import ModelShowcase from '../components/index/ModelShowcase.vue'
+import WhyChooseUs from '../components/index/WhyChooseUs.vue'
 </script>
