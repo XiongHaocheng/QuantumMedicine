@@ -71,12 +71,14 @@ function nextImage() {
   slideDirection.value = 'right'
   lastIndex.value = currentIndex.value
   currentIndex.value = (currentIndex.value + 1) % images.length
+  if (!initialized.value) initialized.value = true
 }
 
 function prevImage() {
   slideDirection.value = 'left'
   lastIndex.value = currentIndex.value
   currentIndex.value = (currentIndex.value - 1 + images.length) % images.length
+  if (!initialized.value) initialized.value = true
 }
 
 onMounted(() => {
@@ -90,7 +92,6 @@ onUnmounted(() => {
   clearInterval(timer)
 })
 </script>
-
 <style scoped>
 .carousel-bg {
   width: 100vw;
