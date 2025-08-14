@@ -1,21 +1,16 @@
 <template>
   <div class="carousel-bg">
-    <div
-      v-for="(img, idx) in images"
-      :key="idx"
-      :class="[
-        'carousel-img',
-        {
-          current: idx === currentIndex,
-          prev: idx === lastIndex,
-          'slide-in-from-right': slideDirection === 'right' && idx === currentIndex,
-          'slide-in-from-left': slideDirection === 'left' && idx === currentIndex,
-          'slide-out-to-left': slideDirection === 'right' && idx === lastIndex,
-          'slide-out-to-right': slideDirection === 'left' && idx === lastIndex,
-        }
-      ]"
-      :style="{ backgroundImage: `url(${img.url})` }"
-    ></div>
+    <div v-for="(img, idx) in images" :key="idx" :class="[
+      'carousel-img',
+      {
+        current: idx === currentIndex,
+        prev: idx === lastIndex,
+        'slide-in-from-right': !isFirstRender && slideDirection === 'right' && idx === currentIndex,
+        'slide-in-from-left': !isFirstRender && slideDirection === 'left' && idx === currentIndex,
+        'slide-out-to-left': !isFirstRender && slideDirection === 'right' && idx === lastIndex,
+        'slide-out-to-right': !isFirstRender && slideDirection === 'left' && idx === lastIndex,
+      }
+    ]" :style="{ backgroundImage: `url(${img.url})` }"></div>
 
     <div class="carousel-overlay">
       <!-- 左箭头 -->
@@ -30,19 +25,15 @@
       </div>
 
       <div class="carousel-indicators">
-        <span
-          v-for="(img, idx) in images"
-          :key="idx"
-          :class="{ active: idx === currentIndex }"
-          @click="goToImage(idx)"
-        ></span>
+        <span v-for="(img, idx) in images" :key="idx" :class="{ active: idx === currentIndex }"
+          @click="goToImage(idx)"></span>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 
 const images = [
   {
@@ -63,9 +54,9 @@ const images = [
 ]
 
 const currentIndex = ref(0)
-const lastIndex = ref(null) // 初始化为null
-const slideDirection = ref('right') // 'right' or 'left'
-const initialized = ref(false) // 添加初始化标志
+const lastIndex = ref(-1)
+const slideDirection = ref('right')
+const isFirstRender = ref(true) // 新增
 
 let timer = null
 
@@ -91,10 +82,10 @@ function prevImage() {
 }
 
 onMounted(() => {
-  // 延迟启动轮播，确保第一张图片正常显示
-  setTimeout(() => {
-    timer = setInterval(nextImage, 4000)
-  }, 100)
+  timer = setInterval(nextImage, 4000)
+  nextTick(() => {
+    isFirstRender.value = false // 首次渲染后关闭首次标志
+  })
 })
 
 onUnmounted(() => {
@@ -177,6 +168,7 @@ onUnmounted(() => {
   from {
     transform: translateX(100%);
   }
+
   to {
     transform: translateX(0);
   }
@@ -186,6 +178,7 @@ onUnmounted(() => {
   from {
     transform: translateX(-100%);
   }
+
   to {
     transform: translateX(0);
   }
@@ -195,6 +188,7 @@ onUnmounted(() => {
   from {
     transform: translateX(0);
   }
+
   to {
     transform: translateX(-100%);
     opacity: 0;
@@ -205,6 +199,7 @@ onUnmounted(() => {
   from {
     transform: translateX(0);
   }
+
   to {
     transform: translateX(100%);
     opacity: 0;
@@ -275,15 +270,31 @@ onUnmounted(() => {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 48px;
+  font-size: 32px;
   color: white;
   cursor: pointer;
   z-index: 30;
-  padding: 8px 16px;
+  width: 56px;
+  /* 新增：固定宽高 */
+  height: 56px;
+  /* 新增：固定宽高 */
   background: rgba(0, 0, 0, 0.3);
   border-radius: 50%;
+  /* 新增：圆形 */
   pointer-events: auto;
   transition: background 0.3s;
+  display: flex;
+  /* 新增：居中内容 */
+  align-items: center;
+  /* 新增：垂直居中 */
+  justify-content: center;
+  /* 新增：水平居中 */
+  border: 2px solid #fff;
+  /* 可选：加个白色边框更明显 */
+  box-sizing: border-box;
+  /* 防止边框撑大 */
+  padding: 0;
+  /* 去除原有内边距 */
 }
 
 .carousel-arrow:hover {
