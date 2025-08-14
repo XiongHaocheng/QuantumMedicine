@@ -28,18 +28,38 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, onBeforeUnmount } from 'vue';
+
+let observer = null;
 
 onMounted(() => {
-    // 页面加载后依次显示卡片
+    const container = document.querySelector('.culture-bar'); // 监听整个区域
     const items = document.querySelectorAll('.culture-item');
-    items.forEach((item, index) => {
-        setTimeout(() => {
-            item.classList.add('is-visible');
-        }, index * 200);
-    });
+
+    observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                // 进入视口，依次显示卡片
+                items.forEach((item, index) => {
+                    setTimeout(() => {
+                        item.classList.add('is-visible');
+                    }, index * 200);
+                });
+            } else {
+                // 离开视口，移除 is-visible，下次进入可以重新播放
+                items.forEach(item => item.classList.remove('is-visible'));
+            }
+        });
+    }, { threshold: 0.3 }); // 30% 可见时触发
+
+    observer.observe(container);
+});
+
+onBeforeUnmount(() => {
+    if (observer) observer.disconnect();
 });
 </script>
+
 
 <style scoped>
 .culture-bar {
@@ -101,6 +121,7 @@ onMounted(() => {
     transform: translateY(20px);
     opacity: 0;
     transition: transform 0.5s cubic-bezier(.22, .61, .36, 1), opacity 0.5s cubic-bezier(.22, .61, .36, 1), box-shadow 0.3s;
+    cursor: pointer;
 }
 
 .culture-item.is-visible {

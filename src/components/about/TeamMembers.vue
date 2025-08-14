@@ -1,6 +1,6 @@
 <template>
     <section class="about-section">
-        <h2 class="intro-title">团队成员</h2>
+        <h2 class="intro-title">指导老师</h2>
 
         <!-- 第一行：2 位指导老师 -->
         <div class="team-row row-two">
@@ -24,7 +24,7 @@
                 </p>
             </article>
         </div>
-
+ <h2 class="intro-title">团队成员</h2>
         <!-- 第二行：5 位团队成员 -->
         <div class="team-row row-five">
             <article class="member">

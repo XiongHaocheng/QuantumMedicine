@@ -9,7 +9,12 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue'
 
+onMounted(() => {
+  // 平滑滚动到顶部
+  window.scrollTo(0, 0)
+})
 </script>
 
 <style scoped>

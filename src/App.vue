@@ -14,6 +14,7 @@
 <script setup>
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
+
 </script>
 
 <style scoped>
@@ -36,7 +37,6 @@ body {
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  overflow-x: hidden;
   background: #ffffff;
 }
 

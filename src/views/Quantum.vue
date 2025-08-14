@@ -11,23 +11,39 @@
         <div class="colored-bar"></div>
 
         <div class="card-container">
-          <!-- 左侧图片 -->
-          <img class="card-left slide-left" :src="item.img" alt="图片" />
-
-          <!-- 右侧卡片 -->
-          <div class="card slide-right">
-            <div class="card-right">
-              <div class="row1">
-                <p class="row1-text">{{ item.cardTitle }}</p>
-                <img class="right-icon" src="../assets/logo.png" alt="图标" />
+          <!-- 偶数行（index 从 0 开始，所以是 index % 2 === 1）反转顺序 -->
+          <template v-if="index % 2 === 1">
+            <!-- 卡片在左 -->
+            <div class="card slide-left">
+              <div class="card-right">
+                <div class="row1">
+                  <p class="row1-text">{{ item.cardTitle }}</p>
+                  <img class="right-icon" src="../assets/logo.png" alt="图标" />
+                </div>
+                <hr class="card-line" />
+                <div class="row3">{{ item.content }}</div>
               </div>
-
-              <hr class="card-line" />
-
-              <div class="row3">{{ item.content }}</div>
             </div>
-          </div>
+            <!-- 图片在右 -->
+            <img class="card-left slide-right" :src="item.img" alt="图片" />
+          </template>
+
+          <!-- 其他行保持原来布局 -->
+          <template v-else>
+            <img class="card-left slide-left" :src="item.img" alt="图片" />
+            <div class="card slide-right">
+              <div class="card-right">
+                <div class="row1">
+                  <p class="row1-text">{{ item.cardTitle }}</p>
+                  <img class="right-icon" src="../assets/logo.png" alt="图标" />
+                </div>
+                <hr class="card-line" />
+                <div class="row3">{{ item.content }}</div>
+              </div>
+            </div>
+          </template>
         </div>
+
       </div>
     </div>
 
@@ -72,8 +88,8 @@ const modules = [
 ]
 
 const modulesRef = ref([])
-
 onMounted(() => {
+  window.scrollTo(0, 0);
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {

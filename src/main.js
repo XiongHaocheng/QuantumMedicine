@@ -3,11 +3,10 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 
-// 引入 TDesign Vue3 组件库
-import TDesign from 'tdesign-vue-next'
-import 'tdesign-vue-next/es/style/index.css'
+import ElementPlus from 'element-plus';
+import 'element-plus/dist/index.css';
 
 createApp(App)
-  .use(TDesign)
+  .use(ElementPlus)
   .use(router)
   .mount('#app')

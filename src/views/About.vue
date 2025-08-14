@@ -16,6 +16,13 @@ import TeamIntroduction from '@/components/about/TeamIntroduction.vue'
 import TeamCulture from '@/components/about/TeamCulture.vue'
 import TeamMembers from '@/components/about/TeamMembers.vue'
 import TeamHonors from '@/components/about/TeamHonors.vue'
+
+import { onMounted } from 'vue'
+
+onMounted(() => {
+  // 平滑滚动到顶部
+  window.scrollTo(0, 0)
+})
 </script>
 
 <style scoped>
