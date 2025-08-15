@@ -1,5 +1,6 @@
 <template>
   <div class="reconstruction-page">
+    <ReconQuantumLoading v-if="isProcessing" />
     <!-- 新增的两个横排卡片 -->
     <div class="card-section">
       <div class="card-container">
@@ -45,6 +46,7 @@
           </div>
         </div>
 
+
         <!-- 右侧卡片 -->
         <div class="simple-card">
           <h3>处理结果</h3>
@@ -77,7 +79,7 @@
                 <img v-else :src="resultData.reconImage" alt="重建PET图像" class="dose-img" />
               </div>
               <div class="card-footer">
-                <t-button class="button" type="primary" size="small" @click="downreconlowImage()">
+                <t-button class="button" type="primary" size="small" @click="downloadreconImage()">
                   点击下载
                 </t-button>
               </div>
@@ -112,12 +114,13 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { ElMessage, ElLoading } from 'element-plus';
+import { ElMessage} from 'element-plus';
 import { uploadAndRun as uploadAndRunAPI } from "@/apis/ssh-connect.js"; // 注意别名
 
 const lowDoseImage = new URL('../assets/Reconstruction/lowdose.png', import.meta.url).href;
 const reconImage = new URL('../assets/Reconstruction/recon.png', import.meta.url).href;
 const standImage = new URL('../assets/Reconstruction/stand.png', import.meta.url).href;
+import ReconQuantumLoading from "../components/reconstruction/ReconQuantumLoading.vue"; // 引入组件
 
 const fileInput = ref(null);
 const selectedFile = ref(null);
@@ -157,12 +160,6 @@ const handleClick = async () => {
     fileError.value = '请先上传文件';
     return;
   }
-  // 加载动画
-  const loadingInstance = ElLoading.service({
-    lock: true,
-    text: '处理中...',
-    background: 'rgba(0,0,0,0.5)',
-  });
 
   isProcessing.value = true;
   try {
@@ -178,14 +175,13 @@ const handleClick = async () => {
       psnr: result.psnr,
       ssim: result.ssim
     };
-
+    isProcessing.value = false;
     ElMessage.success("重建成功");
   } catch (error) {
     console.error('处理失败:', error);
     fileError.value = '处理失败: ' + (error.message || error);
   } finally {
     isProcessing.value = false;
-    loadingInstance.close();
   }
 };
 
@@ -203,7 +199,7 @@ const downloadlowImage = () => {
   document.body.removeChild(link);
 };
 
-const downreconlowImage = () => {
+const downloadreconImage = () => {
   const imageData = resultData.value?.reconImage;
   if (!imageData) {
     ElMessage.warning('没有可下载的图片');
