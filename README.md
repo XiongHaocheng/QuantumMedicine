@@ -1,6 +1,6 @@
 # QUANTUM HEALTHCARE
 
-这个模板可以帮助你快速开始系统运行。
+本系统基于移动云五岳量子机器学习平台开发，能够同时完成放疗中的重建、分割及剂量预测三大任务，实现一体化管理与分析。
 
 ## 推荐的开发环境配置
 
@@ -30,7 +30,9 @@ npm run build
 
 ## 项目安装（后端）
 
+```sh
 请进入./src/backend
+```
 
 ## 依赖安装
 ```sh
@@ -43,9 +45,11 @@ python app.py
 ```
 
 ## 注意！！！
+```sh
 ./src/backend/app.py中的
 SSH_HOST = "xxx"
 SSH_PORT = xxx
 SSH_USER = "xxx"
 SSH_PASSWORD = "xxx"
 为我们租借服务器的信息，如需后端连接服务器运行模型推理，请联系我们：xionghaocheng@stu.scu.edu.cn
+```
