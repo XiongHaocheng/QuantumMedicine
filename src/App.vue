@@ -1,20 +1,17 @@
 <template>
   <div class="app-container">
-    <!-- 顶部导航 -->
-    <Header />
-
-    <!-- 页面主体内容（不同路由切换） -->
+    <!-- 只在非登录页显示头部和底部 -->
+    <Header v-if="$route.path !== '/'" />
     <router-view />
-
-    <!-- 底部 -->
-    <Footer />
+    <Footer v-if="$route.path !== '/'" />
   </div>
 </template>
 
 <script setup>
+import { useRoute } from 'vue-router'
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
-
+const $route = useRoute()
 </script>
 
 <style scoped>
