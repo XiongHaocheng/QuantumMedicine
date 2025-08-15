@@ -116,7 +116,7 @@ function handleLogin() {
             loading.value = false
             router.push('/home')
         } else {
-            errorMsg.value = '邮箱或密码错误（账号：admin，密码：123456）'
+            errorMsg.value = '邮箱或密码错误（账号：admin@gmail.com，密码：123456）'
             loading.value = false
         }
     }, 600)
