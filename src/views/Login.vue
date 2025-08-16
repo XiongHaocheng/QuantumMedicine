@@ -5,7 +5,10 @@
             <!-- 左侧介绍区 -->
             <div class="intro-section">
                 <div class="intro-content">
+                    <div style="display: flex;align-items: center;width: 50vw;">
+                    <img class="logo" src="@/assets/logo.png" />
                     <h2>QUANTUM HEALTHCARE</h2>
+                    </div>
                     <p>
                         量子科技赋能医疗，<br>
                         引领智能健康新纪元。
@@ -116,7 +119,7 @@ function handleLogin() {
             loading.value = false
             router.push('/home')
         } else {
-            errorMsg.value = '邮箱或密码错误（账号：admin，密码：123456）'
+            errorMsg.value = '邮箱或密码错误（账号：admin@gmail.com，密码：123456）'
             loading.value = false
         }
     }, 600)
@@ -489,7 +492,13 @@ h1 {
 .footer-note a {
     color: #e0e7ef;
 }
-
+.logo {
+    width: 64px;
+    height: 64px;
+    border-radius: 8px;
+    margin-right: 20px;
+    margin-top: 20px;
+   }
 @media (max-width: 900px) {
     .auth-container {
         flex-direction: column;

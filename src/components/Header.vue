@@ -34,7 +34,7 @@ const route = useRoute()
 
 const menu2Value = ref('')
 const menuItems = [
-    { value: 'item1', label: '首页', path: 'home/' },
+    { value: 'item1', label: '首页', path: '/home' },
     { value: 'item2', label: '重建技术', path: '/reconstruction' },
     { value: 'item3', label: '分割技术', path: '/segmentation' },
     { value: 'item4', label: '剂量预测技术', path: '/dose-prediction' },
