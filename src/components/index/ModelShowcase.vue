@@ -1,16 +1,16 @@
 <template>
     <section class="model-showcase">
         <div v-for="(model, idx) in models" :key="model.title" class="model-item" :class="{ visible: visible[idx] }"
-            :ref="el => setModelRef(el, idx)" @click="goTo(model.path)" >
+            :ref="el => setModelRef(el, idx)" @click="goTo(model.path)">
             <div v-if="idx % 2 === 0" class="model-left">
-                <img src="@/assets/temp.png" class="model-img" alt="模型图片" />
+                <img :src="model.leftImage" class="model-img" alt="模型图片" />
             </div>
             <div class="model-info">
                 <h3>{{ model.title }}</h3>
                 <p>{{ model.desc }}</p>
             </div>
             <div v-if="idx % 2 !== 0" class="model-right">
-                <img src="@/assets/temp.png" class="model-img" alt="模型图片" />
+                <img :src="model.rightImage" class="model-img" alt="模型图片" />
             </div>
         </div>
     </section>
@@ -18,24 +18,35 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router' // 引入路由
+import { useRouter } from 'vue-router'
 const router = useRouter()
+
+// 静态导入图片
+import ChinaMobile from '@/assets/reconstruction.png'
+import Segmentation from '@/assets/segmentation.png'
+import DosePrediction from '@/assets/DosePrediction.png'
 
 const models = [
     {
         title: '图像重建模型',
         desc: '该模型通过低剂量采集的数据进行重建，能够恢复高分辨率和高信噪比的医学影像，为医生提供精准的病灶和解剖结构信息。可应用于各种影像类型的重建，帮助医护人员更加清晰地观察疾病发展。',
-        path: '/reconstruction'
+        path: '/reconstruction',
+        leftImage: ChinaMobile,
+        rightImage: ''
     },
     {
         title: '图像分割模型',
         desc: '图像分割模型可帮助从复杂的医学影像中精准分离出目标区域，如肿瘤或关键器官，为医生提供详细的结构信息。这一技术对于制定放疗计划、保护危及器官、以及评估治疗效果至关重要。',
-        path: '/segmentation'
+        path: '/segmentation',
+        leftImage: '',
+        rightImage: Segmentation
     },
     {
         title: '剂量预测模型',
         desc: '该模型结合临床需求进行剂量预测，帮助提高治疗效率，并降低辐射风险。它能够在低剂量成像条件下，快速进行高质量的影像重建与精准的分割与剂量预测，进一步提升治疗效果的精确度。',
-        path: '/dose-prediction'
+        path: '/dose-prediction',
+        leftImage: DosePrediction,
+        rightImage: ''
     }
 ]
 
@@ -45,7 +56,6 @@ const modelRefs = ref([])
 function setModelRef(el, idx) {
     if (el) modelRefs.value[idx] = el
 }
-// 点击跳转
 function goTo(path) {
     router.push(path)
 }
@@ -96,11 +106,12 @@ onMounted(() => {
 
 .model-item.visible {
     opacity: 1;
-   
+
 }
+
 .model-item.visible:hover {
-  transform: translateY(60px) scale(1.01); 
-  box-shadow: 0 8px 32px rgba(20, 40, 80, 0.16);
+    transform: translateY(60px) scale(1.01);
+    box-shadow: 0 8px 32px rgba(20, 40, 80, 0.16);
 }
 
 .model-left,
