@@ -39,7 +39,7 @@
         <div class="footer-text address">四川省成都市四川大学</div>
 
         <div class="footer-title contact-title">联系方式</div>
-        <div class="footer-text contact">电话：+86 123 4567 8901</div>
+        <div class="footer-text contact">邮箱：xionghaocheng@stu.scu.edu.cn</div>
       </div>
     </div>
 

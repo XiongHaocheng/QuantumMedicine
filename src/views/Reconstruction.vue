@@ -168,7 +168,7 @@ const handleClick = async () => {
 
     resultData.value = {
       lowDoseImage: lowDoseImage,  
-      reconImage: reconImage,      
+      reconImage: reconImage,  
       psnr: result.psnr,
       ssim: result.ssim
     };

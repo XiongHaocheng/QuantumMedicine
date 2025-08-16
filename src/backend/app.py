@@ -16,10 +16,11 @@ RESULTS_DIR = os.path.abspath("../assets/Reconstruction")  # 下载图片存放�
 REMOTE_DATA_DIR = "/root/autodl-tmp/xhc/data/test"
 REMOTE_RESULTS_DIR = "/root/autodl-tmp/xhc/test_results/best"
 
-SSH_HOST = "connect.nmb2.seetacloud.com"
-SSH_PORT = 46245
-SSH_USER = "root"
-SSH_PASSWORD = "yIGCqziSYpNw"
+# 为我们租借服务器的信息，如需后端连接服务器运行模型推理，请联系我们：xionghaocheng@stu.scu.edu.cn
+SSH_HOST = "xxx"
+SSH_PORT = xxx
+SSH_USER = "xxx"
+SSH_PASSWORD = "xxx"
 
 # 确保目录存在
 os.makedirs(UPLOAD_DIR, exist_ok=True)
