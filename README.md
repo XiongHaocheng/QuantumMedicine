@@ -28,10 +28,10 @@ npm run dev
 npm run build
 ```
 
-## 项目安装（后端）
+## 项目路径（后端）
 
 ```sh
-请进入./src/backend
+cd ./src/backend
 ```
 
 ## 依赖安装
