@@ -41,11 +41,10 @@
             <!-- 开始处理按钮 -->
             <hr class="card-line" />
             <div class="button-container">
-              <t-button class="button" @click="handleClick()">点击开始处理</t-button>
+              <button class="button" @click="handleClick()">点击开始处理</button>
             </div>
           </div>
         </div>
-
 
         <!-- 右侧卡片 -->
         <div class="simple-card">
@@ -64,9 +63,9 @@
               </div>
 
               <div class="card-footer">
-                <t-button class="button" type="primary" size="small" @click="downloadlowImage()">
+                <button class="button" type="primary" size="small" @click="downloadlowImage()">
                   点击下载
-                </t-button>
+                </button>
               </div>
 
             </div>
@@ -79,9 +78,9 @@
                 <img v-else :src="resultData.reconImage" alt="重建PET图像" class="dose-img" />
               </div>
               <div class="card-footer">
-                <t-button class="button" type="primary" size="small" @click="downloadreconImage()">
+                <button class="button" type="primary" size="small" @click="downloadreconImage()">
                   点击下载
-                </t-button>
+                </button>
               </div>
             </div>
 
@@ -114,13 +113,14 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { ElMessage} from 'element-plus';
+import { ElMessage } from 'element-plus';
 import { uploadAndRun as uploadAndRunAPI } from "@/apis/ssh-connect.js"; // 注意别名
+import ReconQuantumLoading from "../components/reconstruction/ReconQuantumLoading.vue"; // 引入组件
 
 const lowDoseImage = new URL('../assets/Reconstruction/lowdose.png', import.meta.url).href;
 const reconImage = new URL('../assets/Reconstruction/recon.png', import.meta.url).href;
 const standImage = new URL('../assets/Reconstruction/stand.png', import.meta.url).href;
-import ReconQuantumLoading from "../components/reconstruction/ReconQuantumLoading.vue"; // 引入组件
+
 
 const fileInput = ref(null);
 const selectedFile = ref(null);
@@ -166,16 +166,14 @@ const handleClick = async () => {
     // 调用后端上传并执行
     const result = await uploadAndRunAPI(selectedFile.value);
 
-    if (result.error) console.error("错误输出:", result.error);
-
-    // 根据后端生成的图片路径替换 lowDoseImage 和 reconImage
     resultData.value = {
-      lowDoseImage: lowDoseImage,
-      reconImage: reconImage,
+      lowDoseImage: lowDoseImage,  
+      reconImage: reconImage,      
       psnr: result.psnr,
       ssim: result.ssim
     };
-    isProcessing.value = false;
+
+    console.log(resultData.value)
     ElMessage.success("重建成功");
   } catch (error) {
     console.error('处理失败:', error);

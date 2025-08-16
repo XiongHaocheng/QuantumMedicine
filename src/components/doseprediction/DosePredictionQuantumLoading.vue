@@ -27,7 +27,7 @@
                     <animate attributeName="fill" values="#1890ff;#00ffff;#1890ff" dur="0.6s" begin="0.6s"
                         repeatCount="indefinite" />
                 </rect>
-                <text x="130" y="120" fill="white" font-size="12">线性变化</text>
+                <text x="135" y="120" fill="white" font-size="12">线性变化</text>
             </g>
 
             <!-- 门操作：RX, RY, RZ -->

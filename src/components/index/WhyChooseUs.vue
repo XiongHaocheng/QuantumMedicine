@@ -78,7 +78,7 @@
 .why-img {
     width: 300px;
     height: 200px;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 16px;
     margin-bottom: 24px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);

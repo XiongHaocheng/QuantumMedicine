@@ -172,6 +172,7 @@ const handleClick = async () => {
       DoseScore: 2.063,
       DVHScore: 0.974
     };
+
     isProcessing.value = false;
     ElMessage.success("预测成功");
   } catch (error) {

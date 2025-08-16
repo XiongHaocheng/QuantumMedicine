@@ -22,9 +22,9 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 // 静态导入图片
-import ChinaMobile from '@/assets/reconstruction.png'
-import Segmentation from '@/assets/segmentation.png'
-import DosePrediction from '@/assets/DosePrediction.png'
+import ChinaMobile from '@/assets/index-reconstruction.png'
+import Segmentation from '@/assets/index-segmentation.png'
+import DosePrediction from '@/assets/index-DosePrediction.png'
 
 const models = [
     {
