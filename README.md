@@ -49,7 +49,6 @@ python app.py
 ![alt text](./src/images/image-3.png)
 ![alt text](./src/images/image-4.png)
 ![alt text](./src/images/image-5.png)
-![alt text](./src/images/image-6.png)
 
 ## 注意！！！
 ```sh
